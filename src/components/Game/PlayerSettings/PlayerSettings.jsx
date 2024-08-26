@@ -6,10 +6,10 @@ const PlayerSettings = ({ title, playerSettingsRef }) => {
     <div className={styles.playerSettings} ref={playerSettingsRef}>
       <h3>{title}</h3>
       <p>Скорость движения</p>
-      <input type="range" placeholder="30"/>
+      <input type="range" min={0} max={100}/>
 
       <p>Частота выстрела</p>
-      <input type="range" placeholder="0.5"/>
+      <input type="range" min={0} max={100}/>
     </div>
   );
 };

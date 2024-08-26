@@ -12,18 +12,23 @@ class Scene {
     this.scorebar = scorebarRef.current;
     this.canvas.width = 500;
     this.canvas.height = 500;
+    this.startButton = startButtonRef.current;
+
+    this.startButton.addEventListener("click", () => {
+      this.restart();
+    });
 
     this.player1 = new Player({
       x: 20,
       y: 10,
       radius: 20,
       velocity: 1,
-      freq: 1,
+      freq: 5,
       settings: player1SettingsRef.current,
       canvas: canvasRef.current,
       addProjectile: this.addProjectile.bind(this),
       name: "player1",
-      color: "green",
+      color: '#4CAF50',
       colorPicker: colorPickerRef.current
     });
 
@@ -32,12 +37,12 @@ class Scene {
       y: 10,
       radius: 20,
       velocity: 1,
-      freq: 1,
+      freq: 5,
       settings: player2SettingsRef.current,
       canvas: canvasRef.current,
       addProjectile: this.addProjectile.bind(this),
       name: "player2",
-      color: "red",
+      color: '#f44336',
       colorPicker: colorPickerRef.current
     });
 
@@ -56,8 +61,12 @@ class Scene {
         this.player2.pickColor()
       }
     });
+  }
 
-    
+  restart() {
+    this.projectiles = [];
+    this.player1.restart();
+    this.player2.restart();
   }
 
   addProjectile(projectile) {
@@ -161,11 +170,11 @@ class Player {
     }, 5000 / this.freq);
 
     this.velocityInput.addEventListener("input", () => {
-      this.setVelocity((this.velocityInput.value * 2) / 100);
+      this.setVelocity((this.velocityInput.value * 10) / 100);
     });
 
     this.freqInput.addEventListener("input", () => {
-      this.setFreq(this.freqInput.value);
+      this.setFreq(this.freqInput.value * 10/ 100);
     });
   }
   setVelocity(velocity) {
@@ -193,11 +202,15 @@ class Player {
       freq: this.freq,
     };
   }
+  restart() {
+    this.score = 0;
+    this.y = this.canvas.height / 2 - this.radius;
+  }
 
   pickColor() {
     this.colorPicker.innerHTML = `
     <p>Цвет ${this.name}</p>
-    <input type="color" value="${this.color} placeholder="Pick a color" />
+    <input type="color" value="${this.color} placeholder="${this.color}" />
     <button>✓</button>
     `;
     this.colorPicker.children[1].addEventListener("input", (e) => {

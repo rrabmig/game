@@ -13,7 +13,6 @@ const Game = () => {
   const mouseModeChangerRef = useRef(null);
   const scene = useRef(null);
   const colorPickerRef = useRef(null);
-
   const [mode, setMode] = useState("cursor");
 
   const animate = () => {
@@ -35,8 +34,7 @@ const Game = () => {
   }, []);
 
   return (
-    <div>
-      <h1 className={styles.title}>Дуэль</h1>
+    <div style={{marginTop: "10px"}}>
       <div className={styles.wrapper}>
         <div className={styles.settings}>
           <PlayerSettings
@@ -83,10 +81,18 @@ const Game = () => {
           </div>
           <GameCanvas canvasRef={canvasRef} />
         </div>
-        <div className={styles.colorPicker} ref={colorPickerRef}> 
+        <div className={styles.info}>
+          <h1 className={styles.title}>Дуэль</h1>
+          <p>Ползунки меняют характеристики игроков</p>
+          <p>У мышки есть два режима:  курсор и шар для отталкивания</p>
+          <p>Нажмите на кнопку "Заново" чтобы начать заново</p>
+          <p>Щелкните по шарику курсором что бы выбрат его цвет</p>
+          <div className={styles.colorPicker} ref={colorPickerRef}></div>
         </div>
       </div>
-      <button className={styles.startButton}> Начать </button>
+      <button className={styles.startButton} ref={startButtonRef}>
+              Заново
+      </button>
     </div>
   );
 };

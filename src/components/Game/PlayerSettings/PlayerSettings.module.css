@@ -1,0 +1,4 @@
+.playerSettings {
+    display: flex;
+    flex-direction: column;
+}
